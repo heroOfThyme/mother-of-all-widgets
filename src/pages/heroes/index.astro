@@ -1,0 +1,113 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/heroes/Hero.astro';
+import HeroFullScreen from '~/components/widgets/heroes/HeroFullScreen.astro';
+import HeroSplitScreen from '~/components/widgets/heroes/HeroSplitScreen.astro';
+import HeroMinimal from '~/components/widgets/heroes/HeroMinimal.astro';
+import HeroAnimated from '~/components/widgets/heroes/HeroAnimated.astro';
+
+const metadata = {
+  title: 'Hero Components Showcase',
+};
+---
+
+<Layout metadata={metadata}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-4xl font-bold text-center mb-12">Hero Components</h1>
+
+    {/* Hero Default */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Hero Default</h2>
+      <div class="border rounded-lg overflow-hidden">
+        <Hero
+          tagline="Welcome to Our Site"
+          title="Amazing Hero Component"
+          subtitle="This is a subtitle that explains what we do and why we're awesome."
+          actions={[
+            { variant: 'primary', text: 'Get Started', href: '#' },
+            { text: 'Learn More', href: '#' },
+          ]}
+          image={{
+            src: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3',
+            alt: 'Hero Image',
+          }}
+        />
+      </div>
+    </div>
+
+    {/* Hero Full Screen */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Hero Full Screen</h2>
+      <div class="border rounded-lg overflow-hidden h-[600px]">
+        <HeroFullScreen
+          tagline="Full Screen Hero"
+          title="This Takes Up The Whole Screen"
+          subtitle="Perfect for making a big impact with background images"
+          actions={[
+            { variant: 'primary', text: 'Get Started', href: '#' },
+            { text: 'Learn More', href: '#' },
+          ]}
+          image={{
+            src: 'https://images.unsplash.com/photo-1558803116-c1b4ac867b31?ixlib=rb-4.0.3',
+            alt: 'Background Image',
+          }}
+        />
+      </div>
+    </div>
+
+    {/* Hero Split Screen */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Hero Split Screen</h2>
+      <div class="border rounded-lg overflow-hidden">
+        <HeroSplitScreen
+          tagline="Split Screen Design"
+          title="Content On One Side, Image On The Other"
+          subtitle="Great for showcasing products or services with a strong visual"
+          actions={[
+            { variant: 'primary', text: 'Get Started', href: '#' },
+            { text: 'Learn More', href: '#' },
+          ]}
+          image={{
+            src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3',
+            alt: 'Split Screen Image',
+          }}
+        />
+      </div>
+    </div>
+
+    {/* Hero Minimal */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Hero Minimal</h2>
+      <div class="border rounded-lg overflow-hidden">
+        <HeroMinimal
+          tagline="Minimal Design"
+          title="Sometimes Less Is More"
+          subtitle="Clean and simple, focusing on typography and whitespace"
+          actions={[
+            { variant: 'primary', text: 'Get Started', href: '#' },
+            { text: 'Learn More', href: '#' },
+          ]}
+        />
+      </div>
+    </div>
+
+    {/* Hero Animated */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Hero Animated</h2>
+      <div class="border rounded-lg overflow-hidden">
+        <HeroAnimated
+          tagline="Animated Hero"
+          title="Add Some Motion To Your Hero"
+          subtitle="Engage users with subtle animations and transitions"
+          actions={[
+            { variant: 'primary', text: 'Get Started', href: '#' },
+            { text: 'Learn More', href: '#' },
+          ]}
+          image={{
+            src: 'https://images.unsplash.com/photo-1521747116042-5a810fda9664?ixlib=rb-4.0.3',
+            alt: 'Animated Hero Image',
+          }}
+        />
+      </div>
+  </div>
+</Layout>

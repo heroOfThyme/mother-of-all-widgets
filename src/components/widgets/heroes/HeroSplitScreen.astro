@@ -1,0 +1,115 @@
+---
+import Image from '~/components/common/Image.astro';
+import Button from '~/components/ui/Button.astro';
+import type { Hero as Props } from '~/types';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  content = await Astro.slots.render('content'),
+  actions = await Astro.slots.render('actions'),
+  image = await Astro.slots.render('image'),
+  id,
+} = Astro.props;
+---
+
+<section class="relative flex flex-col lg:flex-row min-h-screen not-prose" {...id ? { id } : {}}>
+  {/* Left Side - Content */}
+  <div
+    class="lg:w-1/2 bg-gradient-to-br from-primary/5 to-secondary/5 dark:from-primary/10 dark:to-secondary/10 flex items-center"
+  >
+    <div class="max-w-2xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-20 lg:py-32 w-full">
+      <div class="lg:pr-8">
+        {
+          tagline && (
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold bg-primary/10 text-primary dark:bg-primary/20 mb-6">
+              <span class="w-2 h-2 bg-primary rounded-full" />
+              <span set:html={tagline} />
+            </div>
+          )
+        }
+
+        {
+          title && (
+            <h1
+              class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 font-heading dark:text-gray-200"
+              set:html={title}
+            />
+          )
+        }
+
+        {
+          subtitle && (
+            <p class="text-lg md:text-xl text-muted mb-8 dark:text-slate-300 leading-relaxed" set:html={subtitle} />
+          )
+        }
+
+        {content && <div class="mb-8 text-muted dark:text-slate-400" set:html={content} />}
+
+        {
+          actions && (
+            <div class="flex flex-wrap gap-4">
+              {Array.isArray(actions) ? (
+                actions.map((action) => <Button {...(action || {})} class="px-6 py-3" />)
+              ) : (
+                <Fragment set:html={actions} />
+              )}
+            </div>
+          )
+        }
+
+        {/* Features or Stats */}
+        <div class="mt-12 grid grid-cols-3 gap-8">
+          <div>
+            <div class="text-3xl font-bold text-primary">100+</div>
+            <div class="text-sm text-muted">Happy Clients</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-primary">24/7</div>
+            <div class="text-sm text-muted">Support</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-primary">99%</div>
+            <div class="text-sm text-muted">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Right Side - Image */}
+  <div class="lg:w-1/2 relative overflow-hidden bg-gray-900">
+    {
+      image && (
+        <>
+          {typeof image === 'string' ? (
+            <Fragment set:html={image} />
+          ) : (
+            <Image
+              class="absolute inset-0 object-cover w-full h-full"
+              widths={[400, 768, 1024, 1536]}
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              loading="eager"
+              width={1536}
+              height={1024}
+              {...image}
+            />
+          )}
+          {/* Decorative Overlay */}
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
+
+          {/* Decorative Elements */}
+          <div class="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
+            <div class="bg-white/10 backdrop-blur-md rounded-lg p-6 max-w-md">
+              <p class="text-white text-lg font-medium">"The best solution we've found for our business needs."</p>
+              <p class="text-white/80 text-sm mt-2">- Sarah Johnson, CEO</p>
+            </div>
+          </div>
+        </>
+      )
+    }
+
+    {!image && <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary opacity-90" />}
+  </div>
+</section>

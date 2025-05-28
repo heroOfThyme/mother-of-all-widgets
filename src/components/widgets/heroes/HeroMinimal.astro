@@ -1,0 +1,90 @@
+---
+import Button from '~/components/ui/Button.astro';
+import type { Hero as Props } from '~/types';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  actions = await Astro.slots.render('actions'),
+  id,
+} = Astro.props;
+---
+
+<section class="relative not-prose" {...id ? { id } : {}}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="pt-24 md:pt-32 pb-12 md:pb-20">
+      <div class="max-w-3xl">
+        {
+          tagline && (
+            <p
+              class="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase mb-3"
+              set:html={tagline}
+            />
+          )
+        }
+
+        {
+          title && (
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight tracking-tight mb-6 font-heading dark:text-gray-200">
+              <span set:html={title} />
+              <span class="text-primary">.</span>
+            </h1>
+          )
+        }
+
+        {
+          subtitle && (
+            <p
+              class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl"
+              set:html={subtitle}
+            />
+          )
+        }
+
+        {
+          actions && (
+            <div class="flex items-center gap-6">
+              {Array.isArray(actions) ? (
+                <>
+                  {actions[0] && (
+                    <Button {...actions[0]} class="group px-6 py-3">
+                      <span>{actions[0].text}</span>
+                      <svg
+                        class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Button>
+                  )}
+                  {actions[1] && (
+                    <a
+                      href={actions[1].href}
+                      class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                    >
+                      <span>{actions[1].text}</span>
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                  )}
+                </>
+              ) : (
+                <Fragment set:html={actions} />
+              )}
+            </div>
+          )
+        }
+
+        {/* Decorative Line */}
+        <div class="mt-16 flex items-center gap-4">
+          <div class="h-px bg-gray-300 dark:bg-gray-700 w-24"></div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Scroll to explore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
