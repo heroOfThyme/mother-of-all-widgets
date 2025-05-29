@@ -1,0 +1,133 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '~/components/Logo.astro';
+import Button from '~/components/ui/Button.astro';
+import type { CallToAction } from '~/types';
+
+interface SubLink {
+  text: string;
+  href: string;
+  description?: string;
+  icon?: string;
+}
+
+interface MegaMenuSection {
+  title: string;
+  links: Array<SubLink>;
+}
+
+interface Link {
+  text?: string;
+  href?: string;
+  megaMenu?: Array<MegaMenuSection>;
+}
+
+export interface Props {
+  id?: string;
+  links?: Array<Link>;
+  actions?: Array<CallToAction>;
+}
+
+const {
+  id = 'header',
+  links = [],
+  actions = [],
+} = Astro.props;
+---
+
+<header
+  id={id}
+  class="sticky top-0 z-50 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <Logo />
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-8">
+        {
+          links.map(({ text, href, megaMenu }) => (
+            <>
+              {megaMenu ? (
+                <div class="relative group">
+                  <button
+                    type="button"
+                    class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200"
+                  >
+                    <span>{text}</span>
+                    <Icon name="tabler:chevron-down" class="w-4 h-4" />
+                  </button>
+                  
+                  <!-- Mega Menu Dropdown -->
+                  <div class="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-screen max-w-4xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 p-8">
+                      <div class="grid grid-cols-3 gap-8">
+                        {megaMenu.map((section) => (
+                          <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">
+                              {section.title}
+                            </h3>
+                            <ul class="space-y-3">
+                              {section.links.map((link) => (
+                                <li>
+                                  <a
+                                    href={link.href}
+                                    class="flex items-start space-x-3 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200"
+                                  >
+                                    {link.icon && (
+                                      <Icon name={link.icon} class="w-5 h-5 mt-0.5 flex-shrink-0" />
+                                    )}
+                                    <div>
+                                      <div class="font-medium">{link.text}</div>
+                                      {link.description && (
+                                        <div class="text-sm text-gray-500 dark:text-gray-500 mt-1">
+                                          {link.description}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <a
+                  href={href}
+                  class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200"
+                >
+                  {text}
+                </a>
+              )}
+            </>
+          ))
+        }
+      </nav>
+
+      <!-- Actions -->
+      <div class="hidden lg:flex items-center space-x-4">
+        {
+          actions?.map((action) => (
+            <Button {...action} />
+          ))
+        }
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        type="button"
+        class="lg:hidden p-2 rounded-md text-gray-600 dark:text-gray-300"
+        aria-label="Toggle menu"
+      >
+        <Icon name="tabler:menu-2" class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+</header>

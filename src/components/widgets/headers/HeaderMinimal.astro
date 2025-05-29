@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '~/components/Logo.astro';
+import ToggleTheme from '~/components/common/ToggleTheme.astro';
+import type { CallToAction } from '~/types';
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+}
+
+export interface Props {
+  id?: string;
+  links?: Array<Link>;
+  actions?: Array<CallToAction>;
+  showToggleTheme?: boolean;
+  isSticky?: boolean;
+}
+
+const { id = 'header', links = [], actions = [], showToggleTheme = false, isSticky = false } = Astro.props;
+---
+
+<header
+  class:list={[
+    { sticky: isSticky, relative: !isSticky },
+    'top-0 z-40 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md',
+  ]}
+  {...id ? { id } : {}}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <Logo />
+      </a>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        {
+          links.map(({ text, href }) => (
+            <a
+              href={href}
+              class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200"
+            >
+              {text}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Actions -->
+      <div class="hidden md:flex items-center space-x-4">
+        {showToggleTheme && <ToggleTheme />}
+        {
+          actions?.map((action) => (
+            <a
+              href={action.href}
+              class:list={[
+                'px-4 py-2 rounded-md transition-all duration-200',
+                {
+                  'bg-primary text-white hover:bg-primary-600': action.variant === 'primary',
+                  'border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800':
+                    action.variant !== 'primary',
+                },
+              ]}
+            >
+              {action.text}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Mobile menu button -->
+      <button type="button" class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300" aria-label="Toggle menu">
+        <Icon name="tabler:menu-2" class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+</header>

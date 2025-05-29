@@ -5,6 +5,7 @@ import HeroFullScreen from '~/components/widgets/heroes/HeroFullScreen.astro';
 import HeroSplitScreen from '~/components/widgets/heroes/HeroSplitScreen.astro';
 import HeroMinimal from '~/components/widgets/heroes/HeroMinimal.astro';
 import HeroAnimated from '~/components/widgets/heroes/HeroAnimated.astro';
+import HeroProduct from '~/components/widgets/heroes/HeroProduct.astro';
 
 const metadata = {
   title: 'Hero Components Showcase',
@@ -109,5 +110,26 @@ const metadata = {
           }}
         />
       </div>
+    </div>
+
+    {/* Hero Product */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Hero Product</h2>
+      <div class="border rounded-lg overflow-hidden">
+        <HeroProduct
+          tagline="Product Showcase"
+          title="Highlight Your Product Features"
+          subtitle="Perfect for e-commerce or product-focused sites"
+          actions={[
+            { variant: 'primary', text: 'Buy Now', href: '#' },
+            { text: 'View Details', href: '#' },
+          ]}
+          image={{
+            src: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3',
+            alt: 'Product Image',
+          }}
+        />
+      </div>
+    </div>
   </div>
 </Layout>

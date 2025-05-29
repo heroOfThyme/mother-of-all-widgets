@@ -1,0 +1,262 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import HeaderMinimal from '~/components/widgets/headers/HeaderMinimal.astro';
+import HeaderMega from '~/components/widgets/headers/HeaderMega.astro';
+import HeaderSplit from '~/components/widgets/headers/HeaderSplit.astro';
+import HeaderCentered from '~/components/widgets/headers/HeaderCentered.astro';
+
+const metadata = {
+  title: 'Header Components Showcase',
+};
+
+// Sample data for demonstrations
+const basicLinks = [
+  { text: 'Features', href: '#features' },
+  { text: 'About', href: '#about' },
+  { text: 'Services', href: '#services' },
+  { text: 'Contact', href: '#contact' },
+];
+
+const dropdownLinks = [
+  { text: 'Home', href: '/' },
+  {
+    text: 'Services',
+    href: '#',
+    links: [
+      { text: 'Web Design', href: '#web-design' },
+      { text: 'Development', href: '#development' },
+      { text: 'Consulting', href: '#consulting' },
+    ],
+  },
+  { text: 'About', href: '#about' },
+  { text: 'Contact', href: '#contact' },
+];
+
+const megaMenuLinks = [
+  { text: 'Home', href: '/' },
+  {
+    text: 'Products',
+    megaMenu: [
+      {
+        title: 'Templates',
+        links: [
+          {
+            text: 'Business',
+            href: '#business',
+            description: 'Professional business templates',
+            icon: 'tabler:briefcase',
+          },
+          {
+            text: 'Portfolio',
+            href: '#portfolio',
+            description: 'Creative portfolio layouts',
+            icon: 'tabler:palette',
+          },
+          {
+            text: 'E-commerce',
+            href: '#ecommerce',
+            description: 'Online store templates',
+            icon: 'tabler:shopping-cart',
+          },
+        ],
+      },
+      {
+        title: 'Components',
+        links: [
+          {
+            text: 'Headers',
+            href: '#headers',
+            description: 'Various header styles',
+            icon: 'tabler:layout-navbar',
+          },
+          {
+            text: 'Heroes',
+            href: '#heroes',
+            description: 'Hero section designs',
+            icon: 'tabler:section',
+          },
+          {
+            text: 'Features',
+            href: '#features',
+            description: 'Feature showcases',
+            icon: 'tabler:star',
+          },
+        ],
+      },
+      {
+        title: 'Resources',
+        links: [
+          {
+            text: 'Documentation',
+            href: '#docs',
+            description: 'Complete guides',
+            icon: 'tabler:book',
+          },
+          {
+            text: 'Support',
+            href: '#support',
+            description: 'Get help',
+            icon: 'tabler:help',
+          },
+          {
+            text: 'Blog',
+            href: '#blog',
+            description: 'Latest updates',
+            icon: 'tabler:news',
+          },
+        ],
+      },
+    ],
+  },
+  { text: 'Pricing', href: '#pricing' },
+];
+---
+
+<Layout metadata={metadata}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Header Components</h1>
+      <p class="text-xl text-muted">
+        A collection of header variations for different use cases and design preferences.
+      </p>
+    </div>
+
+    {/* Default Header (for reference) */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Default Header</h2>
+      <p class="text-muted mb-6">The standard header component with dropdown support and all features.</p>
+      <div class="border rounded-lg overflow-hidden">
+        <Header
+          links={dropdownLinks}
+          actions={[
+            { variant: 'primary' as const, text: 'Get Started', href: '#' },
+            { variant: 'secondary' as const, text: 'Sign In', href: '#' },
+          ]}
+          showToggleTheme
+          isSticky={false}
+        />
+        <div class="h-96 bg-gray-50 dark:bg-gray-800 p-8 flex items-center justify-center">
+          <p class="text-muted">Page content area</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Header Minimal */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Header Minimal</h2>
+      <p class="text-muted mb-6">A clean, minimal header with simple navigation and subtle backdrop blur.</p>
+      <div class="border rounded-lg overflow-hidden">
+        <HeaderMinimal
+          links={basicLinks}
+          actions={[
+            { variant: 'primary' as const, text: 'Get Started', href: '#' },
+            { variant: 'secondary' as const, text: 'Sign In', href: '#' },
+          ]}
+          showToggleTheme
+          isSticky={false}
+        />
+        <div class="h-96 bg-gray-50 dark:bg-gray-800 p-8 flex items-center justify-center">
+          <p class="text-muted">Page content area</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Header Mega Menu */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Header Mega Menu</h2>
+      <p class="text-muted mb-6">
+        A header with mega menu dropdowns for complex navigation structures. Hover over "Products" to see the mega menu.
+      </p>
+      <div class="border rounded-lg overflow-hidden">
+        <HeaderMega links={megaMenuLinks} actions={[{ variant: 'primary' as const, text: 'Get Started', href: '#' }]} />
+        <div class="h-96 bg-gray-50 dark:bg-gray-800 p-8 flex items-center justify-center">
+          <p class="text-muted">Page content area</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Header Split */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Header Split</h2>
+      <p class="text-muted mb-6">
+        A split header with navigation on the left and actions on the right, plus an optional announcement bar.
+      </p>
+      <div class="border rounded-lg overflow-hidden">
+        <HeaderSplit
+          announcement="🎉 New version 2.0 is now available! Learn more →"
+          links={[
+            { text: 'Products', href: '#products' },
+            { text: 'Solutions', href: '#solutions' },
+            { text: 'Pricing', href: '#pricing' },
+            { text: 'Resources', href: '#resources' },
+          ]}
+          actions={[{ variant: 'primary' as const, text: 'Get Started', href: '#' }, { variant: 'secondary' as const, text: 'Sign In', href: '#' }]}
+          showToggleTheme
+        />
+        <div class="h-96 bg-gray-50 dark:bg-gray-800 p-8 flex items-center justify-center">
+          <p class="text-muted">Page content area</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Header Centered */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-4">Header Centered</h2>
+      <p class="text-muted mb-6">
+        A centered header with the logo in the middle and balanced navigation on both sides. Great for e-commerce or
+        brand-focused sites.
+      </p>
+      <div class="border rounded-lg overflow-hidden">
+        <HeaderCentered
+          leftLinks={[
+            { text: 'Shop', href: '#shop' },
+            { text: 'Collections', href: '#collections' },
+            { text: 'New Arrivals', href: '#new' },
+          ]}
+          rightLinks={[
+            { text: 'About', href: '#about' },
+            { text: 'Contact', href: '#contact' },
+            { text: 'Blog', href: '#blog' },
+          ]}
+          actions={[
+            { variant: 'link', text: 'Account', href: '#account' },
+            { variant: 'primary', text: 'Cart (0)', href: '#cart' },
+          ]}
+          showToggleTheme
+        />
+        <div class="h-96 bg-gray-50 dark:bg-gray-800 p-8 flex items-center justify-center">
+          <p class="text-muted">Page content area</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Usage Examples */}
+    <div class="mt-16 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
+      <h2 class="text-2xl font-bold mb-6">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-3">When to use each header:</h3>
+          <ul class="space-y-2 text-muted">
+            <li><strong>Default Header:</strong> General purpose, most features</li>
+            <li><strong>Minimal:</strong> Clean sites, portfolios, blogs</li>
+            <li><strong>Transparent:</strong> Landing pages with hero images</li>
+            <li><strong>Mega Menu:</strong> Complex sites, e-commerce</li>
+            <li><strong>Split:</strong> SaaS, product sites with CTAs</li>
+            <li><strong>Centered:</strong> Brand-focused, fashion, retail</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Common props:</h3>
+          <ul class="space-y-2 text-muted">
+            <li><code>links</code> - Navigation links array</li>
+            <li><code>actions</code> - CTA buttons array</li>
+            <li><code>showToggleTheme</code> - Show theme switcher</li>
+            <li><code>isSticky</code> - Make header sticky</li>
+            <li><code>id</code> - Custom header ID</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

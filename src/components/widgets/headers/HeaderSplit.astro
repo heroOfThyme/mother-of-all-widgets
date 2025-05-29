@@ -1,0 +1,89 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '~/components/Logo.astro';
+import Button from '~/components/ui/Button.astro';
+import ToggleTheme from '~/components/common/ToggleTheme.astro';
+import type { CallToAction } from '~/types';
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+}
+
+export interface Props {
+  id?: string;
+  links?: Array<Link>;
+  actions?: Array<CallToAction>;
+  announcement?: string;
+  showToggleTheme?: boolean;
+}
+
+const { id = 'header', links = [], actions = [], announcement, showToggleTheme = false } = Astro.props;
+---
+
+<header id={id} class="w-full">
+  {/* Announcement Bar */}
+  {
+    announcement && (
+      <div class="bg-primary text-white text-center py-2 px-4 text-sm">
+        <p>{announcement}</p>
+      </div>
+    )
+  }
+
+  {/* Main Header */}
+  <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <!-- Left Side - Logo & Navigation -->
+        <div class="flex items-center space-x-8">
+          <a href="/" class="flex items-center">
+            <Logo />
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-6">
+            {
+              links.map(({ text, href }) => (
+                <a
+                  href={href}
+                  class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200 font-medium"
+                >
+                  {text}
+                </a>
+              ))
+            }
+          </nav>
+        </div>
+
+        <!-- Right Side - Search, Theme Toggle & Actions -->
+        <div class="hidden md:flex items-center space-x-4">
+          {/* Search */}
+          <button
+            type="button"
+            class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label="Search"
+          >
+            <Icon name="tabler:search" class="w-5 h-5" />
+          </button>
+
+          {showToggleTheme && <ToggleTheme />}
+
+          <div class="h-6 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+          {actions?.map((action) => <Button {...action} />)}
+        </div>
+
+        <!-- Mobile menu button -->
+        <button
+          type="button"
+          class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300"
+          aria-label="Toggle menu"
+        >
+          <Icon name="tabler:menu-2" class="w-6 h-6" />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
