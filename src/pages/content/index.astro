@@ -1,0 +1,224 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import ContentCards from '~/components/widgets/content/ContentCards.astro';
+import ContentTimeline from '~/components/widgets/content/ContentTimeline.astro';
+import ContentSplit from '~/components/widgets/content/ContentSplit.astro';
+import ContentGrid from '~/components/widgets/content/ContentGrid.astro';
+import Content from '~/components/widgets/Content.astro';
+
+const metadata = {
+  title: 'Content Widgets',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- HeroText Widget ******************* -->
+  <h1 class="text-4xl font-bold text-center mb-12">Content Components</h1>
+
+  <!-- Original Content Widget Example -->
+
+  <Content
+    isReversed
+    title="Traditional Content Layout"
+    subtitle="This is the existing Content widget for comparison"
+    items={[
+      {
+        title: 'Flexible Layout Options',
+        description: 'The traditional content widget offers flexible layouts with images, text, and feature lists.',
+        icon: 'tabler:layout',
+      },
+      {
+        title: 'Rich Content Support',
+        description: 'Supports rich HTML content, images, and call-to-action buttons in various configurations.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Responsive Design',
+        description: 'Automatically adapts to different screen sizes while maintaining visual hierarchy.',
+        icon: 'tabler:device-mobile',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1553484771-371a605b060b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Traditional content layout example',
+    }}
+    callToAction={{
+      text: 'Explore More',
+      href: '#',
+      variant: 'primary',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Compare with Traditional Layout
+      </h3>
+      <p>
+        The original Content widget provides a more traditional approach with image-text combinations, while the new
+        ContentCards widget offers a modern card-based layout perfect for services, features, or team member showcases.
+      </p>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Another ContentCards Example -->
+  <ContentCards
+    title="Why Choose Our Platform"
+    subtitle="Key benefits that set us apart from the competition"
+    items={[
+      {
+        title: 'Lightning Fast',
+        description: 'Built with performance in mind, our platform delivers sub-second load times.',
+        icon: 'tabler:bolt',
+      },
+      {
+        title: 'Developer Friendly',
+        description: 'Clean, well-documented code that developers love to work with.',
+        icon: 'tabler:code',
+      },
+      {
+        title: 'Fully Responsive',
+        description: 'Looks great on every device, from mobile phones to large desktop screens.',
+        icon: 'tabler:device-mobile',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-gray-50 dark:bg-transparent"></div>
+    </Fragment>
+  </ContentCards>
+
+  <!-- ContentCards with Image -->
+  <ContentTimeline
+    title="Our Journey"
+    subtitle="The evolution of our platform from concept to reality"
+    tagline="Timeline"
+    items={[
+      {
+        title: 'Project Inception',
+        description:
+          'We identified the need for a modern, flexible web template system that developers actually want to use. Market research showed a gap in developer-focused solutions.',
+        date: 'January 2024',
+        icon: 'tabler:bulb',
+      },
+      {
+        title: 'Design & Architecture',
+        description:
+          'Created comprehensive design systems and planned the technical architecture. Focused on performance, accessibility, and developer experience from the ground up.',
+        date: 'March 2024',
+        icon: 'tabler:palette',
+      },
+      {
+        title: 'Core Development',
+        description:
+          'Built the foundational framework using Astro 5.0 and Tailwind CSS. Implemented the widget system and core functionality with extensive testing.',
+        date: 'June 2024',
+        icon: 'tabler:code',
+      },
+      {
+        title: 'Beta Testing',
+        description:
+          'Released to a select group of developers for feedback and refinement. Made significant improvements based on real-world usage and community input.',
+        date: 'September 2024',
+        icon: 'tabler:test-pipe',
+      },
+      {
+        title: 'Public Launch',
+        description:
+          'Official release to the community with full documentation and support. Built a thriving ecosystem of contributors and satisfied users.',
+        date: 'December 2024',
+        icon: 'tabler:rocket',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </ContentTimeline>
+
+  <!-- ContentSplit Widget ************* -->
+  <ContentSplit
+    title="Why Choose Our Platform"
+    subtitle="Built for modern developers who demand performance and flexibility"
+    content="<p>Our platform combines cutting-edge technology with intuitive design, making it easier than ever to create beautiful, high-performance websites. With built-in SEO optimization, responsive design, and extensive customization options, you can focus on what matters most - your content and your users.</p>"
+    stats={[
+      { number: '99.9%', label: 'Uptime Guarantee', icon: 'tabler:clock' },
+      { number: '24/7', label: 'Expert Support', icon: 'tabler:headset' },
+      { number: '50+', label: 'Ready Templates', icon: 'tabler:template' },
+      { number: '100K+', label: 'Happy Users', icon: 'tabler:users' },
+    ]}
+    callToAction={{
+      text: 'Start Building Today',
+      href: '#',
+      variant: 'primary',
+      icon: 'tabler:arrow-right',
+    }}
+    image={{
+      src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80',
+      alt: 'Developer workspace with multiple monitors showing code and design',
+    }}
+  />
+
+  <!-- ContentGrid Widget ************** -->
+
+  <ContentGrid
+    title="Featured Projects"
+    subtitle="Explore our latest work and creative solutions"
+    tagline="Portfolio"
+    items={[
+      {
+        title: 'E-commerce Platform Redesign',
+        description:
+          'Complete overhaul of a major retail platform, resulting in 40% increase in conversions and improved user experience.',
+        category: 'Web Development',
+        icon: 'tabler:shopping-cart',
+        image: {
+          src: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+          alt: 'E-commerce platform interface',
+        },
+      },
+      {
+        title: 'Mobile Banking App',
+        description: 'Secure and intuitive banking experience for iOS and Android.',
+        category: 'Mobile App',
+        icon: 'tabler:device-mobile',
+        image: {
+          src: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+          alt: 'Mobile banking app interface',
+        },
+      },
+      {
+        title: 'Brand Identity System',
+        description: 'Complete brand redesign for a tech startup.',
+        category: 'Branding',
+        icon: 'tabler:palette',
+        image: {
+          src: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2339&q=80',
+          alt: 'Brand identity design materials',
+        },
+      },
+      {
+        title: 'SaaS Dashboard',
+        description: 'Analytics dashboard for enterprise clients.',
+        category: 'UI/UX Design',
+        icon: 'tabler:chart-line',
+        image: {
+          src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+          alt: 'SaaS dashboard analytics',
+        },
+      },
+      {
+        title: 'Content Management System',
+        description: 'Custom CMS built for media companies.',
+        category: 'Web Development',
+        icon: 'tabler:database',
+        image: {
+          src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80',
+          alt: 'Content management system interface',
+        },
+      },
+    ]}
+  />
+</Layout>

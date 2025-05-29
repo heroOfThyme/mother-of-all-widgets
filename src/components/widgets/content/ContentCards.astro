@@ -1,0 +1,64 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import type { Widget } from '~/types';
+
+export interface Props extends Widget {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  items?: Array<{
+    title?: string;
+    description?: string;
+    icon?: string;
+    callToAction?: {
+      text: string;
+      href: string;
+      variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
+    };
+  }>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  items = [],
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+      items &&
+        items.map((item) => (
+          <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade intersect-quarter">
+            {item.icon && (
+              <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-6 h-6 text-primary" />
+              </div>
+            )}
+            {item.title && <h3 class="text-xl font-semibold mb-3 dark:text-white">{item.title}</h3>}
+            {item.description && <p class="text-muted dark:text-slate-400 mb-4" set:html={item.description} />}
+            {item.callToAction && (
+              <Button
+                variant={item.callToAction.variant || 'link'}
+                text={item.callToAction.text}
+                href={item.callToAction.href}
+                class="p-0"
+              />
+            )}
+          </div>
+        ))
+    }
+  </div>
+</WidgetWrapper>

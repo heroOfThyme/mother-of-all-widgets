@@ -1,0 +1,94 @@
+---
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+import type { Testimonials as Props } from '~/types';
+
+const {
+  title = '',
+  subtitle = '',
+  tagline = '',
+  testimonials = [],
+  callToAction,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  <div class="space-y-16">
+    {
+      testimonials &&
+        testimonials.map(({ title, testimonial, name, job, image }, index) => (
+          <div
+            class={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-16 intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter`}
+          >
+            {/* Quote Section */}
+            <div class="lg:w-1/2">
+              <div class="relative">
+                {/* Large Quote Mark */}
+                <div class="absolute -top-8 -left-4 text-6xl font-serif text-primary/20 leading-none select-none">
+                  "
+                </div>
+
+                {/* Testimonial Text */}
+                {testimonial && (
+                  <blockquote class="text-xl lg:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 font-light italic mb-8 relative z-10">
+                    {testimonial}
+                  </blockquote>
+                )}
+
+                {/* Author Info */}
+                <div class="border-l-4 border-primary pl-6">
+                  {name && <div class="font-semibold text-lg text-gray-900 dark:text-white">{name}</div>}
+                  {job && (
+                    <div class="text-gray-500 dark:text-gray-400 text-sm uppercase tracking-wider mt-1">{job}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Image Section */}
+            <div class="lg:w-1/2 flex justify-center">
+              {image && (
+                <div class="relative">
+                  {typeof image === 'string' ? (
+                    <Fragment set:html={image} />
+                  ) : (
+                    <Image
+                      class="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl"
+                      width={256}
+                      height={256}
+                      widths={[256, 512]}
+                      layout="fixed"
+                      {...image}
+                    />
+                  )}
+
+                  {/* Decorative Ring */}
+                  <div class="absolute inset-0 rounded-full border-4 border-primary/20 transform scale-110" />
+
+                  {/* Background Circle */}
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full transform scale-125 -z-10" />
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+    }
+  </div>
+
+  {
+    callToAction && (
+      <div class="flex justify-center mx-auto w-fit mt-16 md:mt-20 font-medium">
+        <Button {...callToAction} />
+      </div>
+    )
+  }
+</WidgetWrapper>

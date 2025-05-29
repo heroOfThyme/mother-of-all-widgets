@@ -1,0 +1,118 @@
+---
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+import type { Testimonials as Props } from '~/types';
+
+const {
+  title = '',
+  subtitle = '',
+  tagline = '',
+  testimonials = [],
+  callToAction,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+    {
+      testimonials &&
+        testimonials.map(({ title, testimonial, name, job, image }, index) => (
+          <div class="break-inside-avoid intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter">
+            <div
+              class={`p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
+                index % 4 === 0
+                  ? 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-700/50 hover:border-blue-300 dark:hover:border-blue-600'
+                  : index % 4 === 1
+                    ? 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700/50 hover:border-purple-300 dark:hover:border-purple-600'
+                    : index % 4 === 2
+                      ? 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-700/50 hover:border-green-300 dark:hover:border-green-600'
+                      : 'bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border-orange-200 dark:border-orange-700/50 hover:border-orange-300 dark:hover:border-orange-600'
+              }`}
+            >
+              {/* Header with Author */}
+              <div class="flex items-center mb-4">
+                {image && (
+                  <div class="flex-shrink-0 mr-3">
+                    {typeof image === 'string' ? (
+                      <Fragment set:html={image} />
+                    ) : (
+                      <Image
+                        class="w-10 h-10 rounded-full object-cover"
+                        width={40}
+                        height={40}
+                        widths={[40, 80]}
+                        layout="fixed"
+                        {...image}
+                      />
+                    )}
+                  </div>
+                )}
+
+                <div class="flex-grow">
+                  {name && <div class="font-semibold text-sm text-gray-900 dark:text-white">{name}</div>}
+                  {job && <div class="text-xs text-gray-500 dark:text-gray-400">{job}</div>}
+                </div>
+
+                {/* Decorative Icon */}
+                <div
+                  class={`w-6 h-6 rounded-full flex items-center justify-center ${
+                    index % 4 === 0
+                      ? 'bg-blue-200 dark:bg-blue-800'
+                      : index % 4 === 1
+                        ? 'bg-purple-200 dark:bg-purple-800'
+                        : index % 4 === 2
+                          ? 'bg-green-200 dark:bg-green-800'
+                          : 'bg-orange-200 dark:bg-orange-800'
+                  }`}
+                >
+                  <svg class="w-3 h-3 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Title */}
+              {title && <h3 class="font-semibold text-gray-900 dark:text-white mb-3 text-sm">{title}</h3>}
+
+              {/* Testimonial Text */}
+              {testimonial && (
+                <blockquote class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  "{testimonial}"
+                </blockquote>
+              )}
+
+              {/* Social Proof Badges */}
+              <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-200 dark:border-gray-600">
+                <div class="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
+                </div>
+
+                <div class="text-xs text-gray-400 dark:text-gray-500">Verified</div>
+              </div>
+            </div>
+          </div>
+        ))
+    }
+  </div>
+
+  {
+    callToAction && (
+      <div class="flex justify-center mx-auto w-fit mt-12 md:mt-16 font-medium">
+        <Button {...callToAction} />
+      </div>
+    )
+  }
+</WidgetWrapper>

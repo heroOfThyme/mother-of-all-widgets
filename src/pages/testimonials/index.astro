@@ -1,0 +1,240 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import TestimonialsCards from '~/components/widgets/testimonials/TestimonialsCards.astro';
+import TestimonialsMinimal from '~/components/widgets/testimonials/TestimonialsMinimal.astro';
+import TestimonialsMasonry from '~/components/widgets/testimonials/TestimonialsMasonry.astro';
+import TestimonialsCarousel from '~/components/widgets/testimonials/TestimonialsCarousel.astro';
+
+const metadata = {
+  title: 'Testimonials Components Showcase',
+};
+
+// Sample testimonials data
+const sampleTestimonials = [
+  {
+    testimonial: `The designs are not only visually appealing but also highly professional. The templates have saved me a significant amount of time while helping me make a lasting impression on my clients.`,
+    name: 'Emily Kennedy',
+    job: 'Front-end developer',
+    image: {
+      src: 'https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=930&q=80',
+      alt: 'Emily Kennedy Image',
+    },
+  },
+  {
+    testimonial: `It beautifully showcases my work, with its clean and elegant design that lets my photographs shine. Customization was a breeze, even for a non-tech person like me.`,
+    name: 'Sarah Hansen',
+    job: 'Photographer',
+    image: {
+      src: 'https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+      alt: 'Sarah Hansen Image',
+    },
+  },
+  {
+    testimonial: `I discovered these templates and I'm impressed by their variety and quality. They've helped me establish a consistent brand image across my marketing platforms.`,
+    name: 'Mark Wilkinson',
+    job: 'Small business owner',
+    image: {
+      src: 'https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=824&q=80',
+      alt: 'Mark Wilkinson Image',
+    },
+  },
+  {
+    testimonial: `The customer support is outstanding and the templates are incredibly easy to customize. I was able to launch my website in just a few days.`,
+    name: 'Jessica Chen',
+    job: 'Marketing Manager',
+    image: {
+      src: 'https://images.unsplash.com/photo-1494790108755-2616c30a13ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+      alt: 'Jessica Chen Image',
+    },
+  },
+  {
+    testimonial: `Perfect for startups like ours. The modern design and fast loading times have significantly improved our conversion rates.`,
+    name: 'David Rodriguez',
+    job: 'Startup Founder',
+    image: {
+      src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+      alt: 'David Rodriguez Image',
+    },
+  },
+  {
+    testimonial: `As a designer, I appreciate the attention to detail and the quality of the components. These templates save me hours of development time.`,
+    name: 'Lisa Park',
+    job: 'UI/UX Designer',
+    image: {
+      src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+      alt: 'Lisa Park Image',
+    },
+  },
+];
+
+const callToActionSample = {
+  target: '_blank',
+  text: 'More testimonials...',
+  href: 'https://github.com/onwidget/astrowind',
+  icon: 'tabler:chevron-right',
+};
+---
+
+<Layout metadata={metadata}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-4xl font-bold text-center mb-12">Testimonials Components</h1>
+
+    {/* Testimonials Default */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-6">Testimonials Default</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">
+        The classic testimonials layout with a clean, professional design. Features a grid layout with consistent
+        spacing and elegant shadows.
+      </p>
+      <div class="border rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 p-8">
+        <Testimonials
+          title="What our customers say"
+          subtitle="Discover what our satisfied customers have to say about their experience working with us."
+          testimonials={sampleTestimonials.slice(0, 3)}
+          callToAction={callToActionSample}
+        />
+      </div>
+    </div>
+
+    {/* Testimonials Cards */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-6">Testimonials Cards</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">
+        Modern card-based design with floating effects and quote icons. Features star ratings, decorative elements, and
+        smooth hover animations.
+      </p>
+      <div class="border rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 p-8">
+        <TestimonialsCards
+          title="Customer Success Stories"
+          subtitle="See how our solutions have transformed businesses and delighted customers around the world."
+          testimonials={sampleTestimonials}
+          callToAction={callToActionSample}
+        />
+      </div>
+    </div>
+
+    {/* Testimonials Minimal */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-6">Testimonials Minimal</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">
+        Clean, elegant design with alternating layout. Features large profile images, stylized quotes, and sophisticated
+        typography perfect for premium brands.
+      </p>
+      <div class="border rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 p-8">
+        <TestimonialsMinimal
+          title="Client Testimonials"
+          subtitle="Hear from our valued clients about their transformative experiences."
+          testimonials={sampleTestimonials.slice(0, 3)}
+          callToAction={callToActionSample}
+        />
+      </div>
+    </div>
+
+    {/* Testimonials Masonry */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-6">Testimonials Masonry</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">
+        Pinterest-style masonry layout with colorful gradient backgrounds. Perfect for displaying many testimonials in
+        an engaging, dynamic grid.
+      </p>
+      <div class="border rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 p-8">
+        <TestimonialsMasonry
+          title="Community Feedback"
+          subtitle="What our growing community has to say about their experience."
+          testimonials={sampleTestimonials}
+          callToAction={callToActionSample}
+        />
+      </div>
+    </div>
+
+    {/* Testimonials Carousel */}
+    <div class="mb-24">
+      <h2 class="text-2xl font-bold mb-6">Testimonials Carousel</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">
+        Interactive carousel design with navigation controls and auto-play. Features large testimonials with elegant
+        typography and smooth transitions.
+      </p>
+      <div class="border rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 p-8">
+        <TestimonialsCarousel
+          title="Featured Reviews"
+          subtitle="Discover why customers choose us through their own words."
+          testimonials={sampleTestimonials.slice(0, 4)}
+          callToAction={callToActionSample}
+        />
+      </div>
+    </div>
+
+    {/* Usage Examples */}
+    <div class="mt-16 p-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+      <h3 class="text-xl font-bold mb-4">Usage Examples</h3>
+      <div class="space-y-4 text-sm">
+        <div>
+          <strong>Default Testimonials:</strong> Best for traditional corporate websites, professional services, and formal
+          business presentations.
+        </div>
+        <div>
+          <strong>Cards Testimonials:</strong> Perfect for modern SaaS applications, creative agencies, startups, and platforms
+          that want to showcase social proof with visual impact.
+        </div>
+        <div>
+          <strong>Minimal Testimonials:</strong> Ideal for luxury brands, premium services, design agencies, and minimalist
+          websites that prioritize elegant simplicity.
+        </div>
+        <div>
+          <strong>Masonry Testimonials:</strong> Great for community platforms, social apps, marketplaces, and sites with
+          many testimonials to display dynamically.
+        </div>
+        <div>
+          <strong>Carousel Testimonials:</strong> Perfect for landing pages, hero sections, and situations where you want
+          to highlight testimonials prominently with interactive engagement.
+        </div>
+      </div>
+    </div>
+
+    {/* Implementation Code */}
+    <div class="mt-12 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
+      <h3 class="text-lg font-bold mb-4">Implementation</h3>
+      <pre
+        class="text-sm overflow-x-auto"><code>{`<!-- Default Testimonials -->
+<Testimonials
+  title="What our customers say"
+  subtitle="Customer testimonials subtitle"
+  testimonials={testimonials}
+  callToAction={callToAction}
+/>
+
+<!-- Cards Testimonials -->
+<TestimonialsCards
+  title="Customer Success Stories"
+  subtitle="See how our solutions have transformed businesses"
+  testimonials={testimonials}
+  callToAction={callToAction}
+/>
+
+<!-- Minimal Testimonials -->
+<TestimonialsMinimal
+  title="Client Testimonials"
+  subtitle="Hear from our valued clients"
+  testimonials={testimonials}
+  callToAction={callToAction}
+/>
+
+<!-- Masonry Testimonials -->
+<TestimonialsMasonry
+  title="Community Feedback"
+  subtitle="What our growing community says"
+  testimonials={testimonials}
+  callToAction={callToAction}
+/>
+
+<!-- Carousel Testimonials -->
+<TestimonialsCarousel
+  title="Featured Reviews"
+  subtitle="Discover why customers choose us"
+  testimonials={testimonials}
+  callToAction={callToAction}
+/>`}</code></pre>
+    </div>
+  </div>
+</Layout>

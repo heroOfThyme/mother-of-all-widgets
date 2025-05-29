@@ -1,0 +1,62 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import { Icon } from 'astro-icon/components';
+import type { Widget } from '~/types';
+
+export interface Props extends Widget {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  items?: Array<{
+    title?: string;
+    description?: string;
+    date?: string;
+    icon?: string;
+  }>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  items = [],
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-4xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  <div class="space-y-8">
+    {
+      items &&
+        items.map((item, index) => (
+          <div class="flex gap-6 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade intersect-quarter">
+            {/* Timeline Line */}
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                {item.icon ? <Icon name={item.icon} class="w-6 h-6" /> : <span>{index + 1}</span>}
+              </div>
+              {index < items.length - 1 && (
+                <div class="w-px h-16 bg-gradient-to-b from-primary to-gray-300 dark:to-gray-600 mt-4" />
+              )}
+            </div>
+
+            {/* Content */}
+            <div class="flex-1 pb-8">
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                {item.date && <div class="text-sm font-medium text-primary dark:text-primary mb-2">{item.date}</div>}
+                {item.title && <h3 class="text-xl font-semibold mb-3 dark:text-white">{item.title}</h3>}
+                {item.description && <p class="text-muted dark:text-slate-400" set:html={item.description} />}
+              </div>
+            </div>
+          </div>
+        ))
+    }
+  </div>
+</WidgetWrapper>
